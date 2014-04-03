@@ -11,6 +11,10 @@
 docs/
 target/
 
-         
+# Intellij project files
+*.iws
+.idea/workspace.xml
+.idea/tasks.xml
+
 # OS
 .DS_Store
