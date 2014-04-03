@@ -1,6 +1,14 @@
-package com.hiott.forecast.library;
+package com.hiott.forecast;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ForecastRequest {
 
@@ -26,7 +34,34 @@ public class ForecastRequest {
    * @see WeatherResult
    */
   public WeatherResult getCurrentWeather (String lat, String lon){
-    WeatherResult result = new WeatherResult();
+
+    int status;
+    JSONObject jsonWeatherData = null;
+    String responseData = "";
+
+    try{
+      URL url = new URL(mUrl + lat + "," + lon);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.connect();
+      status = connection.getResponseCode();
+
+      if (status == HttpURLConnection.HTTP_OK){
+        InputStream inputStream = connection.getInputStream();
+        Reader reader = new InputStreamReader(inputStream);
+        char[] charArray = new char[connection.getContentLength()];
+        reader.read(charArray);
+        responseData = new String(charArray);
+
+        jsonWeatherData = new JSONObject(responseData);
+
+      }else{
+      }
+    }catch(MalformedURLException e){
+    }catch(IOException e){
+    }catch (Exception e){
+    }
+
+    WeatherResult result = new WeatherResult(jsonWeatherData);
 
     return result;
   }
@@ -41,6 +76,6 @@ public class ForecastRequest {
    */
   public WeatherResult getTimeStampedWeather(String lat, String lon, String time){
 
-    return new WeatherResult();  //REMOVE
+    return new WeatherResult(new JSONObject());  //REMOVE
   }
 }

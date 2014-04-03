@@ -1,8 +1,11 @@
-package com.hiott.forecast.library;
+package com.hiott.forecast;
 
+
+import org.json.JSONObject;
 
 public class WeatherResult{
 
+  WeatherResult(JSONObject weatherResults){}
 
 }
 
