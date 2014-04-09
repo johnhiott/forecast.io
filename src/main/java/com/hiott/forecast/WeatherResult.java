@@ -1,12 +1,24 @@
 package com.hiott.forecast;
 
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WeatherResult{
+  private JSONObject mWeatherResultsJson;
 
-  WeatherResult(JSONObject weatherResults){}
+  WeatherResult(JSONObject weatherResults){
+    mWeatherResultsJson = weatherResults;
 
+    try {
+
+      System.out.println(mWeatherResultsJson.toString());
+      JSONObject hourly =  mWeatherResultsJson.getJSONObject("hourly");
+
+    } catch (JSONException e) {
+      System.out.println(e.toString());
+
+    }
+  }
 }
 
   /*

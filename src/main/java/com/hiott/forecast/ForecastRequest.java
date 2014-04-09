@@ -1,11 +1,10 @@
 package com.hiott.forecast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,7 +23,7 @@ public class ForecastRequest {
     //Default values
     mUnits = "us";
     mApiKey = key;
-    mUrl = mUrl + mApiKey + "/";
+    mUrl = BASE_URL + mApiKey + "/";
   }
 
   /**
@@ -35,34 +34,14 @@ public class ForecastRequest {
    */
   public WeatherResult getCurrentWeather (String lat, String lon){
 
-    int status;
-    JSONObject jsonWeatherData = null;
-    String responseData = "";
+    String url = mUrl + lat + "," + lon;
+    WeatherResult result = null;
 
-    try{
-      URL url = new URL(mUrl + lat + "," + lon);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.connect();
-      status = connection.getResponseCode();
-
-      if (status == HttpURLConnection.HTTP_OK){
-        InputStream inputStream = connection.getInputStream();
-        Reader reader = new InputStreamReader(inputStream);
-        char[] charArray = new char[connection.getContentLength()];
-        reader.read(charArray);
-        responseData = new String(charArray);
-
-        jsonWeatherData = new JSONObject(responseData);
-
-      }else{
-      }
-    }catch(MalformedURLException e){
-    }catch(IOException e){
-    }catch (Exception e){
+    try {
+      JSONObject jsonWeatherData = new JSONObject(doHttpRequest(url));
+      result = new WeatherResult(jsonWeatherData);
+    } catch (JSONException e) {
     }
-
-    WeatherResult result = new WeatherResult(jsonWeatherData);
-
     return result;
   }
 
@@ -75,7 +54,45 @@ public class ForecastRequest {
    * @see JSONObject
    */
   public WeatherResult getTimeStampedWeather(String lat, String lon, String time){
+    String url = mUrl + "lat" + "," + lon + "," + time;
+    WeatherResult result = null;
 
-    return new WeatherResult(new JSONObject());  //REMOVE
+    try {
+      JSONObject jsonWeatherData = new JSONObject(doHttpRequest(url));
+      result = new WeatherResult(jsonWeatherData);
+    } catch (JSONException e) {
+    }
+    return result;
+  }
+
+  /*
+    Perform an HTTP Request as return a string of the response
+   */
+  private String doHttpRequest(String _url){
+    StringBuffer response = new StringBuffer();
+
+    try{
+      URL url = new URL(_url);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.connect();
+
+      BufferedReader in = new BufferedReader(
+        new InputStreamReader(connection.getInputStream()));
+      String inputLine;
+
+      while ((inputLine = in.readLine()) != null) {
+        response.append(inputLine);
+      }
+
+      in.close();
+
+    }catch (MalformedURLException e){
+
+    }catch (IOException e){
+
+    }catch (Exception e){
+
+    }
+    return response.toString();
   }
 }
