@@ -15,10 +15,4 @@ public class Location{
   public float getLon(){
     return lon;
   }
-  public void setLat(float lat){
-    this.lat = lat;
-  }
-  public void setLon(float lon){
-    this.lon = lon;
-  }
 }
