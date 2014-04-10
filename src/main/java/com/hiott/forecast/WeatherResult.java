@@ -6,19 +6,20 @@ import org.json.JSONObject;
 public class WeatherResult{
   private JSONObject mWeatherResultsJson;
 
+
+
   WeatherResult(JSONObject weatherResults){
     mWeatherResultsJson = weatherResults;
 
     try {
-
       System.out.println(mWeatherResultsJson.toString());
       JSONObject hourly =  mWeatherResultsJson.getJSONObject("hourly");
 
     } catch (JSONException e) {
       System.out.println(e.toString());
-
     }
   }
+
 }
 
   /*
