@@ -1,5 +1,7 @@
 package com.hiott.forecast;
 
+import org.json.JSONObject;
+
 public class WeatherBlock {
 
   private Integer time;
@@ -8,24 +10,82 @@ public class WeatherBlock {
   private float precipIntensity;
   private float precipProbability;
   private String precipType;
-}
+  private float temperature;
+  private float apparentTemperature;
+  private float dewPoint;
+  private float humidity;
+  private float windSpeed;
+  private float windBearing;  // int or float??
+  private float visibility;
+  private float cloudCover;
+  private float pressure;
+  private float ozone;
 
-/*
-currently: {
-time: 1396536711,
-summary: "Partly Cloudy",
-icon: "partly-cloudy-day",
-precipIntensity: 0.0011,
-precipProbability: 0.8,
-precipType: "rain",
-temperature: 69.22,
-apparentTemperature: 69.22,
-dewPoint: 51.75,
-humidity: 0.54,
-windSpeed: 1.95,
-windBearing: 247,
-visibility: 9.99,
-cloudCover: 0.49,
-pressure: 1017.37,
-ozone: 291.02
-},*/
+  WeatherBlock(JSONObject weatherBlockJson){
+
+  }
+
+  public float getOzone() {
+    return ozone;
+  }
+
+  public float getPressure() {
+    return pressure;
+  }
+
+  public float getCloudCover() {
+    return cloudCover;
+  }
+
+  public float getVisibility() {
+    return visibility;
+  }
+
+  public float getWindBearing() {
+    return windBearing;
+  }
+
+  public float getWindSpeed() {
+    return windSpeed;
+  }
+
+  public float getHumidity() {
+    return humidity;
+  }
+
+  public float getDewPoint() {
+    return dewPoint;
+  }
+
+  public float getApparentTemperature() {
+    return apparentTemperature;
+  }
+
+  public float getTemperature() {
+    return temperature;
+  }
+
+  public String getPrecipType() {
+    return precipType;
+  }
+
+  public float getPrecipProbability() {
+    return precipProbability;
+  }
+
+  public float getPrecipIntensity() {
+    return precipIntensity;
+  }
+
+  public String getIcon() {
+    return icon;
+  }
+
+  public String getSummary() {
+    return summary;
+  }
+
+  public Integer getTime() {
+    return time;
+  }
+}
