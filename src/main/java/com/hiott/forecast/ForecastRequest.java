@@ -31,7 +31,7 @@ public class ForecastRequest {
    * @return WeatherResult object
    * @see WeatherResult
    */
-  public WeatherResult getCurrentWeather (String lat, String lon){
+  public WeatherResult getCurrentWeather (String lat, String lon) throws IOException, MalformedURLException{
 
     String url = mUrl + lat + "," + lon;
     WeatherResult result = null;
@@ -52,7 +52,7 @@ public class ForecastRequest {
    * @return JSONObject
    * @see JSONObject
    */
-  public WeatherResult getTimeStampedWeather(String lat, String lon, String time){
+  public WeatherResult getTimeStampedWeather(String lat, String lon, String time) throws MalformedURLException, IOException{
     String url = mUrl + "lat" + "," + lon + "," + time;
     WeatherResult result = null;
 
@@ -67,31 +67,23 @@ public class ForecastRequest {
   /*
     Perform an HTTP Request as return a string of the response
    */
-  private String doHttpRequest(String _url){
+  private String doHttpRequest(String _url) throws MalformedURLException, IOException{
     StringBuffer response = new StringBuffer();
 
-    try{
-      URL url = new URL(_url);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.connect();
+    URL url = new URL(_url);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.connect();
 
-      BufferedReader in = new BufferedReader(
-        new InputStreamReader(connection.getInputStream()));
-      String inputLine;
+    BufferedReader in = new BufferedReader(
+      new InputStreamReader(connection.getInputStream()));
+    String inputLine;
 
-      while ((inputLine = in.readLine()) != null) {
-        response.append(inputLine);
-      }
-
-      in.close();
-
-    }catch (MalformedURLException e){
-
-    }catch (IOException e){
-
-    }catch (Exception e){
-
+    while ((inputLine = in.readLine()) != null) {
+      response.append(inputLine);
     }
+
+    in.close();
+
     return response.toString();
   }
 }
