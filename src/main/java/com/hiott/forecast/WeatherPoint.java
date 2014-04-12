@@ -2,7 +2,7 @@ package com.hiott.forecast;
 
 import org.json.JSONObject;
 
-public class WeatherBlock {
+public class WeatherPoint {
 
   private Integer time;
   private String summary;
@@ -21,8 +21,8 @@ public class WeatherBlock {
   private float pressure;
   private float ozone;
 
-  WeatherBlock(JSONObject weatherBlockJson){
-
+  WeatherPoint(JSONObject weatherPointJson){
+    //TODO: set member variables
   }
 
   public float getOzone() {

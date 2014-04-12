@@ -4,9 +4,9 @@ public class Location{
   private float lat;
   private float lon;
 
-  Location(float lat, float lon){
-    this.lon = lon;
-    this.lat = lat;
+  Location(String lat, String lon){
+    this.lon = Float.parseFloat(lon);
+    this.lat = Float.parseFloat(lat);
   }
 
   public float getLat(){

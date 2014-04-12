@@ -1,6 +1,5 @@
 package com.hiott.forecast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +13,7 @@ public class ForecastRequest {
   public static final String BASE_URL = "https://api.forecast.io/forecast/";
   private String mApiKey;
   private String mUrl;  //base url + api key
-  private String mUnits;
+  private String mUnits; //TODO: flags
 
   /**
    * @param key Your Forecast.io APIKEY
